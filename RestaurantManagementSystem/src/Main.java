@@ -2,6 +2,8 @@ import com.LLD.Restaurant.*;
 
 import java.sql.Array;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -77,22 +79,45 @@ public class Main {
                     reservationSystem.displayReservation();
                     break;
                 case 4:
-                    reservationSystem.displayPayments();
-                    reservationSystem.displayOrders();
+                    Reservation reservation = new Reservation();
+                    sc.nextLine(); // Consume the leftover newline from the previous input
+
+                    System.out.println("Enter the reservation Id : ");
+                    reservation.setId(sc.nextLine());
+
+                    System.out.println("Enter the customer Id : ");
+                    reservation.setCustomerId(sc.nextLine());
+
+                    System.out.println("Enter the count : ");
+                    reservation.setNumberOfPeople(sc.nextInt());
+                    sc.nextLine(); // Consume the newline left by nextInt()
+
+                    System.out.println("Enter the table type as COUPLE, FAMILY, GET_TOGETHER:");
+                    reservation.setType(TableType.valueOf(sc.nextLine().toUpperCase()));
+
+                    System.out.println("Enter the booking date and time (Note: It should be in yyyy-MM-dd HH:mm format): ");
+                    String dateTimeInput = sc.nextLine();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    LocalDateTime bookingDate = LocalDateTime.parse(dateTimeInput, formatter);
+                    reservation.setBookingDate(bookingDate);
+
+                    reservationSystem.addReservation(reservation);
                     break;
+
                 case 5:
+                    sc.nextLine();
                     System.out.println("Enter the reservation Id: ");
                     String reservationId = sc.nextLine();
                     if(reservationSystem.isAvailable(reservationId)) {
-
-
                         OrderItem order = new OrderItem();
                         sc.nextLine(); // Consume newline left-over
                         System.out.println("Enter the order Id :");
                         order.setId(sc.nextLine());
                         System.out.println("Enter the Customer Id :");
                         order.setCustomerId(sc.nextLine());
-                        order.setStatus(OrderStatus.PENDING);
+                        System.out.println("Enter the order status (PENDING, PREPARING, READY, COMPLETED, CANCELLED):");
+
+                        order.setStatus(OrderStatus.valueOf(sc.nextLine().toUpperCase()));
 
                         List<MenuItem> items = new ArrayList<>();
                         boolean addMoreItems = true;
@@ -114,6 +139,7 @@ public class Main {
 
                         order.setItems(items);
                         reservationSystem.placeOrder(order);
+                        reservationSystem.displayOrders();
                     }
                     else{
                         System.out.println("You didn't reserve any table here!!!");

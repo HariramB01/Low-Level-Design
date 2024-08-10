@@ -1,21 +1,26 @@
 package com.LLD.Restaurant;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Reservation {
     private String id;
     private String customerId;
     private int numberOfPeople;
     private TableType type;
-    private Timestamp bookingDate;
+    private LocalDateTime bookingDate;
 
-    public Reservation(String id, String customerId, int numberOfPeople, Timestamp bookingDate) {
+    public Reservation(String id, String customerId, int numberOfPeople, TableType type, LocalDateTime bookingDate) {
         this.id = id;
         this.customerId = customerId;
         this.numberOfPeople = numberOfPeople;
+        this.type = type;
         this.bookingDate = bookingDate;
     }
 
+    public Reservation() {
+
+    }
 
     public String getId() {
         return id;
@@ -41,11 +46,19 @@ public class Reservation {
         this.numberOfPeople = numberOfPeople;
     }
 
-    public Timestamp getBookingDate() {
+    public TableType getType() {
+        return type;
+    }
+
+    public void setType(TableType type) {
+        this.type = type;
+    }
+
+    public LocalDateTime getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(Timestamp bookingDate) {
+    public void setBookingDate(LocalDateTime bookingDate) {
         this.bookingDate = bookingDate;
     }
 
@@ -55,6 +68,7 @@ public class Reservation {
                 "id='" + id + '\'' +
                 ", customerId='" + customerId + '\'' +
                 ", numberOfPeople=" + numberOfPeople +
+                ", type=" + type +
                 ", bookingDate=" + bookingDate +
                 '}';
     }

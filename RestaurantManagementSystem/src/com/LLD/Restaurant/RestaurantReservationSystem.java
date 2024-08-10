@@ -122,6 +122,12 @@ public class RestaurantReservationSystem {
     }
 
     public boolean isAvailable(String reservationId) {
-        return reservations.contains(reservationId);
+        for (Reservation reservation : reservations) {
+            if (reservation.getId().equals(reservationId)) {
+                System.out.println(reservation);
+                return true;
+            }
+        }
+        return false;
     }
 }
