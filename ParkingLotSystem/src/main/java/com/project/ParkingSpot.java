@@ -1,5 +1,9 @@
 package com.project;
 
+import com.project.Vehicle.AvailabilityStatus;
+import com.project.Vehicle.Vehicle;
+import com.project.Vehicle.VehicleType;
+
 public class ParkingSpot {
 
     private int spotId;
@@ -24,6 +28,10 @@ public class ParkingSpot {
         return type;
     }
 
+    public AvailabilityStatus getStatus() {
+        return status;
+    }
+
     public boolean isAvailable() {
         return parkedVehicle==null;
     }
@@ -31,6 +39,11 @@ public class ParkingSpot {
     public void parkVehicle(Vehicle vehicle) {
         status = AvailabilityStatus.OCCUPIED;
         parkedVehicle = vehicle;
+    }
+
+    public void unparkVehicle(Vehicle vehicle) {
+        status = AvailabilityStatus.AVAILABLE;
+        parkedVehicle = null;
     }
 
     @Override

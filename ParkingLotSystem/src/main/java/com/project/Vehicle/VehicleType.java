@@ -1,4 +1,4 @@
-package com.project;
+package com.project.Vehicle;
 
 public enum VehicleType {
     CAR,

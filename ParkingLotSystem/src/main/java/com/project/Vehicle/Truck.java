@@ -1,4 +1,4 @@
-package com.project;
+package com.project.Vehicle;
 
 public class Truck extends Vehicle{
     public Truck(String vehicleNumber) {

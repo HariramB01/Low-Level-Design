@@ -1,5 +1,7 @@
 package com.project;
 
+import com.project.Vehicle.Vehicle;
+
 import java.util.*;
 
 public class ParkingLot {
@@ -35,4 +37,25 @@ public class ParkingLot {
         }
         return false;
     }
+
+    public boolean unparkVehicle(Vehicle vehicle) {
+        for(ParkingLevel level : levels){
+            if(level.unParkVehicle(vehicle)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean addVehicle(String licenseNumber, Vehicle car) {
+        return true;
+    }
+//
+//    public void displayAvailablity() {
+//        for(ParkingLevel level : levels){
+//            if(level.displayAvailability()){
+//                System.out.println(level.toString());
+//            }
+//        }
+//    }
 }
