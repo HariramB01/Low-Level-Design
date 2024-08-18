@@ -1,0 +1,69 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+class ParkingLevel {
+    - floorId : String
+    - noOfSpots : int
+}
+
+class ParkingSpot {
+    - spotId : String
+    - floorId : String
+    - vehicleId : String
+    - type : VehicleType
+    - status : AvailableStatus
+    - price : double
+}
+
+class Vehicle {
+    - vehicleId : String
+    - spotId : String
+    - licenseNumber : String
+    - type : VehicleType
+}
+
+class Booking {
+    - bookingId : String
+    - floorId : String
+    - spotId : String
+    - vehicleId : String
+    - amount : double
+    - status : BookingStatus
+}
+
+enum VehicleType {
+    CAR
+    BIKE
+    TRUCK
+}
+
+enum AvailableStatus {
+    AVAILABLE
+    OCCUPIED
+}
+
+enum BookingStatus {
+    PENDING
+    CONFIRMED
+    CANCELLED
+}
+
+
+'ParkingLevel "1" -- "0..*" ParkingSpot : contains
+'ParkingSpot "0..1" -- "0..1" Vehicle : holds
+'Booking "1" -- "1" Vehicle : for
+'BookingStatus --> Booking : status
+'VehicleType --> Vehicle : type
+'AvailableStatus --> ParkingSpot : status
+
+
+
+ParkingLevel "1" -- "0..*" ParkingSpot
+ParkingSpot "0..1" -- "0..1" Vehicle
+Booking "1" -- "1" Vehicle
+BookingStatus --> Booking
+VehicleType --> Vehicle
+AvailableStatus --> ParkingSpot
+
+@enduml
