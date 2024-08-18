@@ -1,0 +1,68 @@
+@startuml
+' Define Enums
+enum VehicleType {
+    CAR
+    BIKE
+    TRUCK
+}
+
+enum AvailableStatus {
+    AVAILABLE
+    OCCUPIED
+}
+
+enum BookingStatus {
+    PENDING
+    CONFIRMED
+    CANCELLED
+}
+
+' Define Classes
+class ParkingLevel {
+    floorId : String
+    noOfSpots : int
+}
+
+class ParkingSpot {
+    spotId : String
+    floorId : String
+    vehicleId : String
+    type : VehicleType
+    status : AvailableStatus
+    price : double
+}
+
+class Vehicle {
+    vehicleId : String
+    spotId : String
+    licenseNumber : String
+    type : VehicleType
+}
+
+class Booking {
+    bookingId : String
+    floorId : String
+    spotId : String
+    vehicleId : String
+    amount : double
+    status : BookingStatus
+}
+
+' Define Relationships
+
+' Composition: ParkingLevel contains ParkingSpots, ParkingSpot cannot exist without ParkingLevel
+ParkingLevel "1" *-- "0..*" ParkingSpot : contains
+
+' Aggregation: ParkingSpot holds Vehicle, but Vehicle can exist independently
+ParkingSpot "0..1" o-- "0..1" Vehicle : holds
+
+' Aggregation: Booking references ParkingSpot and Vehicle, but they can exist independently
+Booking "1" o-- "1" ParkingSpot : spot
+Booking "1" o-- "1" Vehicle : vehicle
+
+' BookingStatus and AvailableStatus are enumerations used within Booking and ParkingSpot
+Booking -- BookingStatus : status
+ParkingSpot -- AvailableStatus : status
+Vehicle -- VehicleType : type
+
+@enduml
