@@ -1,0 +1,126 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class User{
+- userId : String
+- name : String
+- password : String
+- contact : String
+- email : String
+- age : String
+}
+
+class Movie{
+- movieId : String
+- title : String
+- duration : int
+- genre : String
+- rating : double
+- language : LANGUAGE
+- releaseDate : LocalDate
+}
+
+class Theater{
+- theaterId : String
+- name : String
+- location : String
+- screens : List<Screen>
+}
+
+class Screen{
+- screenId : String
+- name : String
+- theaterId : String
+- totalSeats : int
+- seats : List<Seat>
+}
+
+class Seat{
+- seatId : String
+- seatNo : String
+- seatType : SEAT_TYPE
+- seatAvailability : SEAT_AVAILABILITY
+}
+
+class Show{
+- showId : String
+- movieId : String
+- screenId : String
+- startTime : LocalDateTime
+- endTime : LocalDateTime
+}
+
+class Booking{
+- bookingId : String
+- UserId : String
+- showId : String
+- seats : List<Seat>
+- bookingStatus : BOOKING_STATUS
+- bookingTime : LocalDateTime
+}
+
+class Order{
+- orderId : String
+- userId : String
+- bookings : List<Booking>
+- orderTime : LocalDateTime
+- totalAmount : double
+- orderStatus : ORDER_STATUS
+- payment : Payment
+}
+
+class Payment{
+- paymentId : String
+- orderId : String
+- paymentMethod : PAYMENT_METHOD
+- paymentType : PAYMENT_TYPE
+- paymentTime : LocalDateTime
+}
+
+
+
+enum LANGUAGE{
+TAMIL,
+ENGLISH,
+HINDI,
+TELUGU
+}
+
+enum SEAT_TYPE{
+BALCONY,
+MIDDLE,
+LOWER
+}
+
+enum SEAT_AVAILABILITY{
+AVAILABLE,
+BOOKED,
+BLOCKED
+}
+
+enum BOOKING_STATUS{
+PENDING,
+CONFIRMED,
+CANCELLED
+}
+
+enum ORDER_STATUS{
+PENDING,
+CONFIRMED,
+CANCELLED
+}
+
+enum PAYMENT_METHOD{
+CREDIT_CARD,
+DEBIT_CARD,
+UPI,
+WALLET
+}
+
+enum PAYMENT_TYPE{
+PENDING,
+CONFIRMED,
+CANCELLED
+}
+
+@enduml
