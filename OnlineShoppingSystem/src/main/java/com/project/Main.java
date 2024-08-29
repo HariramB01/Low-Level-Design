@@ -1,7 +1,6 @@
 package com.project;
 
 import java.sql.Timestamp;
-import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -34,10 +33,6 @@ public class Main {
         onlineShoppingSystem.displayCartItems("U1");
         Thread.sleep(1000);
         onlineShoppingSystem.displayCartItems("U2");
-
-
-        onlineShoppingSystem.makeOrder(new Order("U1", Arrays.asList("P1","P2")));
-
 
     }
 }
