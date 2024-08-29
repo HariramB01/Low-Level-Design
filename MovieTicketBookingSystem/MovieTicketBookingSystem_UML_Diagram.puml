@@ -123,4 +123,50 @@ CONFIRMED,
 CANCELLED
 }
 
+
+movie --> LANGUAGE
+Booking --> BOOKING_STATUS
+Order --> ORDER_STATUS
+Payment --> PAYMENT_TYPE
+Payment --> PAYMENT_METHOD
+seat --> SEAT_AVAILABILITY
+seat --> SEAT_TYPE
+
+
+'Theater *-- Screen
+'Seat --* Screen
+'Show o-- Movie
+'Show o-- Screen
+
+
+'Screen table contains theaterId
+'Theater can exist without Screen
+'That is why it is aggregation
+'Screen *-- Theater
+
+
+
+'Booking table contains userId
+'User can exist without booking
+'That is why it is aggregation
+'Booking o-- User
+'Booking table contains showId
+'Show can exist without Booking
+'That is why it is aggregation
+'Booking o-- Show
+'Order table contains userId
+'User can exist without Order
+'That is why it is aggregation
+'Order o-- UserId
+'Booking table contains List of Seats
+'Seat can exist without Booking
+'That is why it is aggregation
+'Booking o-- Seat
+
+
+
+
+
+
+
 @enduml
