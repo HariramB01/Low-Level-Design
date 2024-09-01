@@ -1,7 +1,5 @@
 package com.project;
 
-import java.util.Map;
-
 public class ParkingLevel {
 
     private String floor_id ;
