@@ -10,7 +10,7 @@ public class Main {
 
         parkingLot.createParkingLot(new ParkingLevel("F01",10)); //number of floors;
         parkingLot.createParkingLot(new ParkingLevel("F02",10 ));
-
+        parkingLot.display();
 
         parkingLot.parkVehicle("SF013",new Vehicle("Car01","TN-25-HR-2001",VehicleType.CAR));
         System.out.println("--------------------------------");
@@ -31,7 +31,10 @@ public class Main {
 
         parkingLot.display();
         System.out.println("--------------------------------");
+        parkingLot.unParkVehicle("SF011","Car01");
+        System.out.println("--------------------------------");
 
+        parkingLot.display();
         boolean exit = false;
         while(exit){
             int choice = sc.nextInt();

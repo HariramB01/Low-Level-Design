@@ -33,7 +33,7 @@ class ParkingSpot {
 }
 
 class Vehicle {
-    vehicleId : String
+    - vehicleId : String
     spotId : String
     licenseNumber : String
     type : VehicleType
