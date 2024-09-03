@@ -6,12 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="TaxiBookingSystem" />
+        <module name="VendingMachine" />
         <module name="ParkingLot" />
-        <module name="ParkingLotSystem" />
         <module name="OnlineShoppingSystem" />
         <module name="MovieTicketBookingSystem" />
         <module name="SnakeGame" />
+        <module name="TaxiBookingSystem" />
+        <module name="ParkingLotSystem" />
       </profile>
     </annotationProcessing>
   </component>
