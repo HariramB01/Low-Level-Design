@@ -1,0 +1,201 @@
+@startuml
+' Class representing a user with various attributes and related entities.
+class User {
+    - id : String
+    - name : String
+    - password : String
+    - email : String
+    - contact : String
+    - addresses : List<Address>
+    - orders : List<Order>
+    - wishlists : List<WishList>
+    - bookings : List<Booking>
+    - cart : Cart
+    - profileCreatedAt : LocalDateTime
+    - profileUpdatedAt : LocalDateTime
+    + createUser(userDTO : UserDTO) : void
+    + updateUser(userDTO : UserDTO) : UserDTO
+}
+
+
+class Address {
+    - id : String
+    - street : String
+    - city : String
+    - state : String
+    - postalCode : String
+    - user : User
+}
+
+
+class Product {
+    - id : String
+    - name : String
+    - description : String
+    - category : CATEGORY
+    - availability : AVAILABILITY_STATUS
+    - madeInLocation : String
+    - quantity : int
+    - price : double
+    - createdAt : LocalDate
+    - expiryDate : LocalDate
+}
+
+' Enum for different product categories.
+enum CATEGORY {
+    FOOD,
+    DRESS,
+    HARDWARE,
+    SOFTWARE
+}
+
+' Class representing inventory details for products.
+class Inventory {
+    - id : String
+    - categoryName : CATEGORY
+    - productName : String
+    - availability : AVAILABILITY_STATUS
+    - quantity : int
+    - price : double
+    - inventoryLocation : String
+    - createdAt : LocalDateTime
+    - updatedAt : LocalDateTime
+}
+
+' Enum for product availability status.
+enum AVAILABILITY_STATUS {
+    AVAILABLE,
+    UNAVAILABLE
+}
+
+' Class representing a shopping cart with products.
+class Cart {
+    - id : String
+    - items : List<Product>
+    - totalAmount : double
+    - createdAt : LocalDateTime
+    - updatedAt : LocalDateTime
+}
+
+' Class representing a wishlist containing products.
+class WishList {
+    - id : String
+    - items : List<Product>
+    - createdAt : LocalDateTime
+    - updatedAt : LocalDateTime
+}
+
+' Class representing a booking with associated user and products.
+class Booking {
+    - id : String
+    - user : User
+    - products : List<Product>
+    - bookingStatus : BOOKING_STATUS
+    - totalAmount : double
+    - createdAt : LocalDateTime
+    - updatedAt : LocalDateTime
+}
+
+' Enum representing the status of a booking.
+enum BOOKING_STATUS {
+    PENDING,
+    COMPLETED,
+    CANCELLED
+}
+
+' Class representing an order with associated booking and user.
+class Order {
+    - id : String
+    - booking : Booking
+    - user : User
+    - totalAmount : double
+    - orderStatus : ORDER_STATUS
+    - createdAt : LocalDateTime
+    - updatedAt : LocalDateTime
+}
+
+' Enum representing the status of an order.
+enum ORDER_STATUS {
+    PENDING,
+    SHIPPED,
+    DELIVERED,
+    CANCELLED
+}
+
+' Class representing a payment related to a booking or order.
+class Payment {
+    - id : String
+    - booking : Booking
+    - order : Order
+    - totalAmount : double
+    - paymentStatus : PAYMENT_STATUS
+    - createdAt : LocalDateTime
+    - updatedAt : LocalDateTime
+}
+
+' Enum representing the status of a payment.
+enum PAYMENT_STATUS {
+    PENDING,
+    COMPLETED,
+    CANCELLED,
+    FAILED
+}
+
+' Associations between the classes
+'User "1" -- "0..*" Address : has
+'User "1" -- "0..1" Cart : has
+'User "1" -- "0..*" Booking : makes
+'User "1" -- "0..*" Order : places
+'User "1" -- "0..*" WishList : has
+'Booking "1" -- "0..*" Product : contains
+'Booking "1" -- "1" User : made by
+'Order "1" -- "1" Booking : based on
+'Payment "1" -- "0..1" Order : linked to
+'Payment "1" -- "0..1" Booking : linked to
+
+
+'Composition
+
+'wishlist cannot exist without user 
+'cart cannot exist without user
+'order cannot exist without user
+'bookings cannot exist without user
+'addresses cannot exist without user
+'booking cannot exist without product
+'order cannot exist without booking
+'payment cannot exist without booking
+'payment cannot exist without order
+
+
+
+User "1" *-- "1" WishList : has
+User "1" *--- "1" Cart : has
+User "1" *--- "0..*" Order : places
+User "1" *--- "0..*" Booking : makes
+User "1" *--- "0..*" Address : has
+Product "0..*" *--- "1" Booking : contains
+Booking "1" *--- "0..*" Order : contains
+Booking "1" *--- "1" Payment
+Order "1" *---"1" Payment
+
+
+'Aggregation
+
+'inventory can exist without product
+'cart can exist without product
+'wishlist can exist without product
+
+Product "0..*" o--- "1" Inventory : adds
+Product "0..*" o--- "1" Cart : adds
+Product "0..*" o--- "1" WishList : adds
+
+'enum mappings
+
+Booking ---- BOOKING_STATUS
+Inventory ---- AVAILABILITY_STATUS
+Inventory ---- CATEGORY
+Order ---- ORDER_STATUS
+Payment ---- PAYMENT_STATUS
+
+
+@enduml
