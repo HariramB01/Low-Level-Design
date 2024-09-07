@@ -1,5 +1,5 @@
 @startuml
-' Class representing a user with various attributes and related entities.
+
 class User {
     - id : String
     - name : String
@@ -14,7 +14,12 @@ class User {
     - profileCreatedAt : LocalDateTime
     - profileUpdatedAt : LocalDateTime
     + createUser(userDTO : UserDTO) : void
+    + addAddress( address : Address) : void
     + updateUser(userDTO : UserDTO) : UserDTO
+    + deleteUser(userId : String) : void
+    + addProductToWishlist( product : Product) : void
+    + addProductToCart( product : Product) : void
+    + createBooking(user: User, products: List<Product>): void
 }
 
 
@@ -39,9 +44,10 @@ class Product {
     - price : double
     - createdAt : LocalDate
     - expiryDate : LocalDate
+    + addProductToInventory(product : Product)
 }
 
-' Enum for different product categories.
+
 enum CATEGORY {
     FOOD,
     DRESS,
@@ -49,11 +55,14 @@ enum CATEGORY {
     SOFTWARE
 }
 
-' Class representing inventory details for products.
+
 class Inventory {
+'inner map is for storing category as key and the product as the List<Product> values.
+'outer map is for storing inventory id as a unique key and the value as the key, value pair of category Type and List<Product>
+    - inventoryMap : Map<String, Map<String, List<Product>>
     - id : String
     - categoryName : CATEGORY
-    - productName : String
+    - products : List<Product>
     - availability : AVAILABILITY_STATUS
     - quantity : int
     - price : double
@@ -62,13 +71,13 @@ class Inventory {
     - updatedAt : LocalDateTime
 }
 
-' Enum for product availability status.
+
 enum AVAILABILITY_STATUS {
     AVAILABLE,
     UNAVAILABLE
 }
 
-' Class representing a shopping cart with products.
+
 class Cart {
     - id : String
     - items : List<Product>
@@ -77,7 +86,7 @@ class Cart {
     - updatedAt : LocalDateTime
 }
 
-' Class representing a wishlist containing products.
+
 class WishList {
     - id : String
     - items : List<Product>
@@ -85,7 +94,7 @@ class WishList {
     - updatedAt : LocalDateTime
 }
 
-' Class representing a booking with associated user and products.
+
 class Booking {
     - id : String
     - user : User
@@ -94,16 +103,19 @@ class Booking {
     - totalAmount : double
     - createdAt : LocalDateTime
     - updatedAt : LocalDateTime
+' user object is to add the order in the Order list
+    - user : User 
+    + createOrder(user : User, booking : Booking) : void
 }
 
-' Enum representing the status of a booking.
+
 enum BOOKING_STATUS {
     PENDING,
     COMPLETED,
     CANCELLED
 }
 
-' Class representing an order with associated booking and user.
+
 class Order {
     - id : String
     - booking : Booking
@@ -114,7 +126,7 @@ class Order {
     - updatedAt : LocalDateTime
 }
 
-' Enum representing the status of an order.
+
 enum ORDER_STATUS {
     PENDING,
     SHIPPED,
@@ -122,7 +134,7 @@ enum ORDER_STATUS {
     CANCELLED
 }
 
-' Class representing a payment related to a booking or order.
+
 class Payment {
     - id : String
     - booking : Booking
@@ -133,7 +145,7 @@ class Payment {
     - updatedAt : LocalDateTime
 }
 
-' Enum representing the status of a payment.
+
 enum PAYMENT_STATUS {
     PENDING,
     COMPLETED,
